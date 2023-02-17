@@ -1,5 +1,6 @@
 package MajorProject1com.example.Student_LbraryManagmentSystem.Models;
 
+
 import MajorProject1com.example.Student_LbraryManagmentSystem.Enums.CardStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,19 +11,48 @@ import java.util.Date;
 @Entity
 @Table(name="card")
 public class Card {
-    //plan is to save the card number
-    //before solving i need to set its attiribute
+
+    //Plan is to save this card in Db.
+    //Before saving I have to set its attributes : Rule 1
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;//its autogenerate no need to set
+    private int id;  //Its auto generated
 
-    @CreationTimestamp //auto time stamp when entry is created
-    private Date createdOn;//auto
+    @CreationTimestamp //Auto timestamp the time when an entry is created
+    private Date createdOn; //Its auto generated
 
-    @UpdateTimestamp// set time when an entry updated
-    private Date updateOn;//auto
+    @UpdateTimestamp //Sets time when an entry is updated.
+    private Date updatedOn; //Its auto generated
 
+    @Enumerated(value = EnumType.STRING)
+    private CardStatus cardStatus; //SEt this attribute
+
+
+    @OneToOne
+    @JoinColumn
+    private Student studentVariableName; //This varible is used in the parent class.
+    // while doing the bidirectional mapping
+
+
+    //Card is parent wrt to Book
+
+
+    //Connecting the card class to the transaction
+    //Bidireectional Mapping
+
+
+
+    public Student getStudentVariableName() {
+        return studentVariableName;
+    }
+
+    public void setStudentVariableName(Student studentVariableName) {
+        this.studentVariableName = studentVariableName;
+    }
+
+    public Card() {
+    }
 
     public int getId() {
         return id;
@@ -40,12 +70,12 @@ public class Card {
         this.createdOn = createdOn;
     }
 
-    public Date getUpdateOn() {
-        return updateOn;
+    public Date getUpdatedOn() {
+        return updatedOn;
     }
 
-    public void setUpdateOn(Date updateOn) {
-        this.updateOn = updateOn;
+    public void setUpdatedOn(Date updatedOn) {
+        this.updatedOn = updatedOn;
     }
 
     public CardStatus getCardStatus() {
@@ -55,33 +85,4 @@ public class Card {
     public void setCardStatus(CardStatus cardStatus) {
         this.cardStatus = cardStatus;
     }
-
-    @Enumerated(value = EnumType.STRING)//telling sql to take it as String datatype
-    private CardStatus cardStatus;
-
-
-    public Card(int id, Date createdOn, Date updateOn, CardStatus cardStatus, Student studentVariableName) {
-        this.id = id;
-        this.createdOn = createdOn;
-        this.updateOn = updateOn;
-        this.cardStatus = cardStatus;
-        StudentVariableName = studentVariableName;
-    }
-
-    public Student getStudentVariableName() {
-        return StudentVariableName;
-    }
-
-    public void setStudentVariableName(Student studentVariableName) {
-        StudentVariableName = studentVariableName;
-    }
-
-    @OneToOne
-    @JoinColumn
-    private Student StudentVariableName;//this variable used in the parent class while doing the bu directionl mapping
-
-    public Card() {
-    }
-
-
 }

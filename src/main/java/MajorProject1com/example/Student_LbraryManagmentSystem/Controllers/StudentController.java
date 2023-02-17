@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("student-library-managementsystem")
+@RequestMapping("/student")
 public class StudentController {
     @Autowired
     StudentService studentService;
 
     @PostMapping("/add")
     public String createStudent(@RequestBody Student student){
+
         return studentService.createStudent(student);
     }
 }
