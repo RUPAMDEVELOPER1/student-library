@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="card")
@@ -36,6 +38,9 @@ public class Card {
 
 
     //Card is parent wrt to Book
+    @OneToMany(mappedBy = "card",cascade = CascadeType.ALL)
+    List<Book> bookIssued;
+
 
 
     //Connecting the card class to the transaction
@@ -52,6 +57,7 @@ public class Card {
     }
 
     public Card() {
+        bookIssued= new ArrayList<>();
     }
 
     public int getId() {
